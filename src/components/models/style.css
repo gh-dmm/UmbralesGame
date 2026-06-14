@@ -1,0 +1,515 @@
+/* =========================================================================
+   1. PALETA GLOBAL KRAFT / CARTÓN CORRUGADO
+   ========================================================================= */
+body {
+    background-color: #dfd3c3; /* Fondo de mesa de trabajo claro */
+    background-image: radial-gradient(#d3c2b0 1px, transparent 0);
+    background-size: 24px 24px;
+    color: #3d2c20;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.carton-panel {
+    background-color: #cbb4a1;
+    border: 3px solid #8d705c;
+    border-radius: 4px;
+    box-shadow: 4px 4px 0px rgba(84, 62, 49, 0.4);
+    padding: 16px;
+    position: relative;
+}
+
+/* Suelo del diorama */
+.bg-carton-floor {
+    background-color: #bfa594;
+    border: 3px dashed #745b49;
+    box-shadow: inset 0px 0px 15px rgba(0,0,0,0.2);
+}
+
+/* Botones estilo pestañas de cartón corrugado */
+.btn-carton {
+    background-color: #dcbfa6;
+    border: 2px solid #6b5141;
+    color: #443226;
+    font-weight: bold;
+    box-shadow: 2px 2px 0px #6b5141;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-carton:hover {
+    background-color: #eacfba;
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px #6b5141;
+    color: #000;
+}
+
+.btn-carton:active {
+    transform: translateY(1px);
+    box-shadow: 1px 1px 0px #6b5141;
+}
+
+.btn-casa {
+    background-color: #b87d4b;
+    color: #fff;
+    border-color: #4a2c0f;
+}
+
+.badge-tag {
+    background-color: #553e31;
+    color: #f5eae0;
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+/* =========================================================================
+   2. INTERFACES DEL DIORAMA (ELEMENTOS CLICKERS 3D)
+   ========================================================================= */
+.objeto-clicker-3d {
+    width: 125px;
+    height: 125px;
+    object-fit: cover;
+    border: 4px solid #553e31;
+    border-radius: 8px;
+    box-shadow: 5px 5px 0px rgba(84, 62, 49, 0.3);
+    cursor: pointer;
+    transition: transform 0.15s;
+    background-color: #e5d4c8;
+}
+
+.objeto-clicker-3d:hover {
+    transform: scale(1.08) translateY(-4px);
+    box-shadow: 8px 8px 0px rgba(84, 62, 49, 0.4);
+}
+
+/* =========================================================================
+   3. CORRECCIÓN CRÍTICA DE CAPAS (FORZAR CENTRADO ABSOLUTO DE POPUPS)
+   ========================================================================= */
+.interfaz-popups-overlay {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Forzar que el fondo oscuro bloquee la pantalla completa y active Flexbox */
+.bg-shadow-fade {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background-color: rgba(20, 15, 10, 0.75) !important;
+    
+    /* 🎯 Eje central del viewport: Alineación matemática horizontal y vertical */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    
+    z-index: 999999 !important;
+    transition: background-color 0.3s ease;
+}
+
+/* Contenedor central del popup estándar (Fichas / Lotería / Chat) */
+.carton-popup-container {
+    background-color: #f3e9dc !important;
+    border: 4px solid #6b5141 !important;
+    box-shadow: 8px 8px 0px rgba(53, 39, 30, 0.4) !important;
+    padding: 25px !important;
+    width: 380px !important; 
+    max-width: 90% !important;
+    position: relative !important;
+    border-radius: 0px !important;
+    
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+}
+
+/* 🆕 Contenedor central robustecido específico para el Grid de la Vitrina */
+.carton-popup-container-vitrina {
+    background-color: #f3e9dc !important;
+    border: 4px solid #6b5141 !important;
+    box-shadow: 8px 8px 0px rgba(53, 39, 30, 0.4) !important;
+    padding: 25px !important;
+    width: 440px !important; 
+    max-width: 95vw !important;
+    position: relative !important;
+    border-radius: 0px !important;
+}
+
+.carton-content-wrapper, .carton-content-wrapper-vitrina {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Botón flotante superior derecho de cierre sobre el marco */
+.btn-close-carton {
+    position: absolute !important;
+    top: -18px !important;
+    right: -18px !important;
+    background-color: #6b5141 !important;
+    color: #f3e9dc !important;
+    border: 3px solid #ffffff !important;
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 22px !important;
+    line-height: 26px !important;
+    font-weight: bold !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    z-index: 1000005 !important;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.3) !important;
+    transition: transform 0.1s ease;
+}
+
+.btn-close-carton:hover {
+    transform: scale(1.1);
+}
+
+/* =========================================================================
+   4. RENDERIZADO DE LAS TARJETAS (FICHA TÉCNICA CLÁSICA)
+   ========================================================================= */
+.carton-ficha-technical {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    color: #3d2c20 !important;
+}
+
+.ficha-image-render {
+    width: 320px !important;       
+    height: 190px !important;      
+    object-fit: cover !important;  
+    border: 3px solid #6b5141 !important;
+    border-radius: 4px !important;
+    box-shadow: inset 0px 0px 10px rgba(0,0,0,0.2), 4px 4px 0px rgba(0,0,0,0.1) !important;
+    margin-bottom: 12px !important;
+}
+
+.ficha-title-text {
+    font-weight: bold !important;
+    color: #3d2c20 !important;
+    margin: 4px 0 !important;
+    text-align: center !important;
+    font-size: 1.15rem !important;
+}
+
+.ficha-description-text {
+    color: #6c5342 !important;
+    font-size: 0.8rem !important;
+    text-align: center !important;
+    margin-bottom: 10px !important;
+    line-height: 1.3 !important;
+}
+
+.ficha-excel-box {
+    width: 100% !important;
+    border-top: 2px dashed #6b5141 !important;
+    padding-top: 8px !important;
+    margin-top: 4px !important;
+    font-size: 0.8rem !important;
+    text-align: left !important;
+}
+
+/* =========================================================================
+   5. EFECTO FLIP REAL TRIDIMENSIONAL (LOTERÍA DE CARTÓN)
+   ========================================================================= */
+.carton-loteria-card {
+    width: 220px !important;
+    height: 300px !important; 
+    perspective: 1000px !important; 
+    cursor: pointer !important;
+    margin: 15px auto !important;
+    position: relative !important;
+}
+
+.loteria-card-inner {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+    transform-style: preserve-3d !important; 
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.carton-loteria-card.flipped .loteria-card-inner {
+    transform: rotateY(180deg) !important;
+}
+
+.card-front-carton, .card-back-carton {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+    
+    border: 4px solid #8d705c !important;
+    border-radius: 4px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 12px !important;
+}
+
+.card-front-carton {
+    background-color: #eddcd2 !important;
+    box-shadow: inset 0px 0px 10px rgba(0,0,0,0.1) !important;
+    z-index: 2; 
+}
+
+.card-back-carton {
+    transform: rotateY(180deg) !important; 
+    background-color: #ffffff !important;
+    padding: 6px !important;
+}
+
+.loteria-image-render {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 2px !important;
+}
+
+.loteria-title-main {
+    font-size: 1.5rem !important;
+    font-weight: 900 !important;
+    letter-spacing: 2px !important;
+    margin: 0 !important;
+}
+
+.loteria-subtitle-origen {
+    font-size: 0.75rem !important;
+    color: #6b5141 !important;
+    margin: 0 !important;
+}
+
+.badge-tag-id {
+    background: #3d2c20 !important;
+    color: #f3e9dc !important;
+    font-size: 0.7rem !important;
+    padding: 2px 6px !important;
+    margin-top: 8px !important;
+    border-radius: 2px;
+}
+
+.carton-card-label {
+    position: absolute !important;
+    bottom: 12px !important;
+    background-color: rgba(253, 244, 227, 0.95) !important;
+    width: 85% !important;
+    font-size: 0.8rem !important;
+    font-weight: bold !important;
+    color: #2b1d12 !important;
+    padding: 4px 8px !important;
+    border: 2px dashed #6b5141 !important;
+    text-align: center !important;
+}
+
+/* =========================================================================
+   6. INTERFAZ INTERNA DE CHAT (AUDITORÍA GEMINI AI)
+   ========================================================================= */
+.chat-header-carton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: 2px solid #6b5141;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+.btn-close-chat {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #6b5141;
+    cursor: pointer;
+}
+
+.chat-body-carton {
+    width: 100%;
+}
+
+.chat-box-scroll {
+    border: 2px solid #6b5141 !important;
+    background-color: #fff !important;
+    box-shadow: inset 0px 2px 5px rgba(0,0,0,0.15);
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 15px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.85rem;
+}
+
+.chat-bubble-item {
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    max-width: 85%;
+    line-height: 1.4;
+}
+
+.bubble-user {
+    background-color: #3d2c20;
+    color: #ffffff;
+    text-align: right;
+    margin-left: auto;
+}
+
+.bubble-ia {
+    background-color: #fff3cd;
+    color: #3d2c20;
+    border-start: 4px solid #ffc107;
+}
+
+.chat-input-group {
+    margin-top: 12px;
+    width: 100%;
+}
+
+.chat-input-label {
+    font-weight: bold;
+    color: #3d2c20;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.chat-textarea-kraft {
+    width: 100%;
+    border: 2px solid #6b5141;
+    background-color: #fdfaf6;
+    padding: 8px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #3d2c20;
+    border-radius: 4px;
+    resize: none;
+}
+
+.chat-footer-carton {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 15px;
+    border-top: 1px dashed #6b5141;
+    padding-top: 10px;
+}
+
+/* =========================================================================
+   7. 🎒 RECTÁNGULO DE REPIZAS Y RANURAS DE LA VITRINA INTERACTIVA
+   ========================================================================= */
+.vitrina-title-header {
+    font-family: 'Courier New', Courier, monospace !important;
+    font-weight: bold !important;
+    color: #3d2c20 !important;
+    border-bottom: 3px dashed #6b5141;
+    width: 100%;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.2rem !important;
+}
+
+/* Caja de repisas con profundidad de cartón corrugado */
+.vitrina-grid-slots-display {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* Cuadrícula perfecta de 3 columnas */
+    gap: 20px !important; 
+    width: 100% !important;
+    background-color: #8c6f5a !important; /* Tono café kraft de estante */
+    border: 3px solid #553e31 !important;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.4) !important;
+    padding: 20px !important;
+    border-radius: 6px !important;
+}
+
+/* Alerta de vitrina vacía */
+.vitrina-vacia-alerta {
+    grid-column: 1 / -1 !important;
+    text-align: center !important;
+    color: #f3e9dc !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 0.85rem !important;
+    padding: 30px 0;
+    line-height: 1.4;
+}
+
+/* Cada nicho o celda individual troquelada */
+.ranura-slot-carton {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #d8c4b6 !important; /* Fondo claro interior del nicho */
+    border: 2px solid #7c5e4c !important;
+    border-radius: 6px !important;
+    width: 105px !important;
+    height: 105px !important;
+    position: relative !important;
+    box-shadow: 3px 3px 0px rgba(0,0,0,0.15) !important;
+}
+
+/* Forzado estricto de las imágenes limpias sin info estorbosa */
+.imagen-objeto-inventario {
+    width: 90px !important;
+    height: 90px !important;
+    object-fit: cover !important; 
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    transition: transform 0.2s ease, filter 0.2s ease !important;
+}
+
+/* Efecto dinámico al pasar el mouse por encima */
+.imagen-objeto-inventario:hover {
+    transform: scale(1.08) rotate(1deg) !important;
+    filter: brightness(1.05) !important;
+}
+
+.carton-actions-panel {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin-top: 15px !important;
+}
+
+.btn-action-kraft {
+    flex: 1 !important;
+    background: #dcbfa6 !important;
+    border: 2px solid #6b5141 !important;
+    color: #3d2c20 !important;
+    padding: 8px !important;
+    font-weight: bold !important;
+    font-size: 0.8rem !important;
+    cursor: pointer !important;
+    border-radius: 4px;
+    transition: background 0.1s;
+}
+
+.btn-action-kraft:hover { background: #eacfba !important; }
+.kraft-disabled { background: #cbb4a1 !important; cursor: not-allowed !important; opacity: 0.6 !important; }
+
+.btn-quitar-matriz {
+    position: absolute !important;
+    top: -6px !important;
+    right: -6px !important;
+    background: #ff4444 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3) !important;
+    z-index: 10;
+}

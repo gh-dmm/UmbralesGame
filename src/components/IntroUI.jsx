@@ -1,7 +1,10 @@
 // components/IntroUI.jsx
 import React from 'react';
+import Creditos from './Creditos.jsx';
+import { useNavigate } from 'react-router-dom';
 
-export const IntroUI = ({ onStart, isTransitioning }) => {
+export const IntroUI = ({ onStart, isTransitioning , onVerCreditos}) => {
+  const navigate = useNavigate()
   return (
    
     <div className={`ui-container ${isTransitioning ? 'transition-exit' : ''}`}>
@@ -23,7 +26,7 @@ export const IntroUI = ({ onStart, isTransitioning }) => {
         onClick={onStart}
       />
 
-      <img src="images/IMG_2285.png" alt="Créditos" className="boton-independiente" id="btn-creditos" />
+      <img src="images/IMG_2285.png" alt="Créditos" className="boton-independiente" id="btn-creditos" onClick={onVerCreditos}/>
       <img src="images/IMG_2283.png" alt="Información" className="boton-independiente" id="btn-info" />
       
     </div>

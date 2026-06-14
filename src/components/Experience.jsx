@@ -6,7 +6,7 @@ import * as THREE from "three";
 import { Model as Museo } from "./models/Museo.jsx";
 import { Model as Galeria } from "./models/Galeria.jsx";
 import { Model as Mapa } from "./models/Mapa.jsx"; 
-import { Model as CasaEscenario } from "./models/CasaEscenario.jsx"; 
+import VistaLlamadas, { Model as CasaEscenario } from "./models/CasaEscenario.jsx"; 
 
 const DEBUG_CAMERA = false;
 
@@ -30,7 +30,13 @@ const DebugCamera = () => {
   return <OrbitControls ref={controlsRef} makeDefault />;
 };
 
-export const Experience = () => {
+// 🚀 CORREGIDO: Desestructuramos las props globales que vienen desde App.jsx directamente en el argumentoO
+export function Experience({ 
+  inventario, 
+  setStatusCarga, 
+  setPiezaSeleccionada, 
+  setModalActivo 
+}) {
   const [introFinished, setIntroFinished] = useState(false);
   const [currentScene, setCurrentScene] = useState("museo"); 
   const [showCasa, setShowCasa] = useState(false); 
@@ -57,13 +63,13 @@ export const Experience = () => {
         setIntroFinished(true);
       } 
       else if (currentScene === "galeria") {
-        controls.setLookAt (3.94, 4.74, - 26.11, 0.5, 3.22, 0.16, false);
+        controls.setLookAt(3.94, 4.74, -26.11, 0.5, 3.22, 0.16, false);
         controls.smoothTime = 0.8;
-        await controls.setLookAt   (-0.22, 4.15, -15.54, -0.24, 4.18, 0.52, true);
+        await controls.setLookAt(-0.22, 4.15, -15.54, -0.24, 4.18, 0.52, true);
         controls.smoothTime = 0.6;
       }
       else if (currentScene === "mapa") {
-        controls.setLookAt(0.81, 3.69, - 0.25, -0.33, 3.5, 0.23, false);
+        controls.setLookAt(0.81, 3.69, -0.25, -0.33, 3.5, 0.23, false);
         controls.smoothTime = 0.9;
         await controls.setLookAt(8, 2.1, -0.15, 0.49, 2.06, -0.09, true);
         controls.smoothTime = 0.6;
@@ -71,7 +77,6 @@ export const Experience = () => {
       else if (currentScene === "casa") {
         controls.setLookAt(5.95, -4.33, 4.93, 1.59, -3.34, -2.35, false);
         controls.smoothTime = 0.8;
-        // Vista general de la casa antes del clic
         await controls.setLookAt(-1.06, -2.3, 5.35, -1.01, -2.07, -0.93, true);
         controls.smoothTime = 0.6;
       }
@@ -91,9 +96,7 @@ export const Experience = () => {
   // 3️⃣ 🎯 Animación de aproximación al hacer clic en la vitrina
   const handleVitrinaZoom = async () => {
     if (!cameraControlsRef.current) return;
-    cameraControlsRef.current.smoothTime = 0.9; // Velocidad del zoom (ajusta a tu gusto)
-    
-    // 👇 NUEVAS COORDENADAS: (Posición de Cámara X, Y, Z) , (Mirando hacia X, Y, Z)
+    cameraControlsRef.current.smoothTime = 0.9;
     await cameraControlsRef.current.setLookAt(0.77, -0.9, 0.12, 0.77, -0.9, 0.11, true);
   };
 
@@ -188,10 +191,15 @@ export const Experience = () => {
         <group>
           {(showCasa || currentScene === "casa") && (
             <group ref={casaGroupRef}>
+              {/* 🚀 CORREGIDO: Eliminamos los prefijos 'props.' redundantes que causaban la falla */}
               <CasaEscenario 
                 position={[0, -2, -5]} 
                 scale={1} 
-                onZoomVitrina={handleVitrinaZoom} // 👈 El clic ejecutará las nuevas coordenadas
+                onZoomVitrina={handleVitrinaZoom} 
+                setStatusCarga={setStatusCarga}
+                setPiezaSeleccionada={setPiezaSeleccionada}
+                setModalActivo={setModalActivo}
+                inventario={inventario}
               />
             </group>
           )}

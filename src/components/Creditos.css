@@ -1,0 +1,160 @@
+/* Importación de fuentes directamente manejada por el empaquetador */
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+.container-creditos {
+    margin: 0;
+    padding: 30px 20px 40px 20px; /* Aumentamos padding superior para dar aire */
+    font-family: 'Righteous', monospace;
+    background-image: url('../../../public/images/F1.jpg'); /* Corregido para Vite (sin ../public) */
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #8B7355;
+    overflow-y: auto; /* Permitir scroll si la pantalla es muy chica */
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    background-blend-mode: overlay;
+    box-sizing: border-box;
+}
+
+/* --- Título de Sección --- */
+.titulo-contenedor-creditos {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 20px auto; /* Más espacio abajo */
+    text-align: center;
+    height: auto;
+    display: block;
+}
+
+.textura-irregular-creditos {
+    width: 55%;
+    min-width: 140px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.5));
+}
+
+.titulo-texto-creditos {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    margin: 0;
+    font-size: 1.8em;
+    text-align: center;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
+    color: #8B4513;
+    pointer-events: none;
+}
+
+/* --- Contenedor de la Sobresección de Cartón --- */
+.sobreseccion-creditos {
+    background-image: url('../../../public/images/img7.png'); /* Corregido para Vite */
+    background-size: cover;
+    background-position: center;
+    background-color: #d2b48c; /* Color de respaldo rústico si la textura no carga */
+    padding: 30px 20px;
+    margin: 0 auto; /* Eliminado el margen negativo que lo sacaba de pantalla */
+    border-radius: 8px; /* Un pequeño toque redondeado rústico */
+    max-width: 600px;
+    min-height: 50vh;
+    box-sizing: border-box;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.5); /* Sombra para resaltar del fondo oscuro */
+}
+
+.seccion-interna-creditos {
+    max-width: 420px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* --- Bloques de Contenido e Interactividad --- */
+.bloque-indexado-creditos {
+    display: none; /* Oculto por defecto */
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 200px; /* Evita que colapse a 0px de altura */
+}
+
+/* Clase de activación inyectada por el controlador JSX de React */
+.bloque-indexado-creditos.activo {
+    display: flex !important; /* Forzamos la visualización sobre cualquier regla externa */
+}
+
+.col-contenido-creditos {
+    flex: 1;
+    padding-right: 15px;
+}
+
+.subtitulo-creditos {
+    font-size: 1.6em;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #8B4513;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.lista-creditos {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.lista-creditos li {
+    padding: 8px 0 8px 25px;
+    position: relative;
+    font-size: 1.2em; /* Un poco más grande para legibilidad en la presentación */
+    line-height: 1.4;
+    color: #DFCEB8 !important; /* Forzamos tu color claro de texto */
+}
+
+.lista-creditos li span {
+    position: absolute;
+    left: 0;
+    color: #8B4513;
+    font-size: 1.2em;
+}
+
+/* --- Botonera Rústica de Scroll --- */
+.col-boton-creditos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 50px;
+}
+
+.btn-scroll-creditos {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #8B4513;
+    color: #DFCEB8;
+    border: 2px solid #DFCEB8;
+    font-size: 1.3em;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-scroll-creditos:hover {
+    background-color: #5c300d;
+    transform: scale(1.08);
+}
+
+.btn-scroll-creditos.btn-retorno-creditos {
+    background-color: #5c300d;
+}
+
+.btn-scroll-creditos.btn-retorno-creditos:hover {
+    background-color: #3d1f05;
+}
